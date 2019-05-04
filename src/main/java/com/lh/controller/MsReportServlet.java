@@ -2,6 +2,7 @@ package com.lh.controller;
 
 import com.lh.mapper.MsReportMapper;
 import com.lh.mapper.MsUserMapper;
+import com.lh.service.MsReportService;
 import com.lh.utils.R;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,26 +14,31 @@ import javax.annotation.Resource;
 public class MsReportServlet {
 
     @Resource
-    private MsReportMapper msReportMapper;
+    private MsReportService msReportService;
 
-    @Resource
-    private MsUserMapper msUserMapper;
+    @RequestMapping("/ms/bg/report/list")
+    public R getList(int pageIndex,int pageSize,String reason){
 
-    @RequestMapping("ms/bg/report/list")
-    public R getList(int pageIndex,int pageSum){
-        return null;
+        return msReportService.getList(pageIndex,pageSize,reason);
+    }
+
+    @RequestMapping("/ms/bg/report/info/{repordId}")
+    public R getInfo(@PathVariable long reportId){
+
+        return msReportService.getInfo(reportId);
+
     }
 
 
-    @RequestMapping("ms/bg/do/{repordId}")
-    public R yes(@PathVariable int reportId){
+    @RequestMapping("/ms/bg/do/{comId}")
+    public R yes(@PathVariable long comId){
 
-        return null;
+        return msReportService.yes(comId);
 
     }
 
-    @RequestMapping("ms/bg/undo/{repordId}")
-    public R undo(@PathVariable int reportId){
+    @RequestMapping("/ms/bg/undo/{comId}")
+    public R undo(@PathVariable long comId){
 
         return null;
 

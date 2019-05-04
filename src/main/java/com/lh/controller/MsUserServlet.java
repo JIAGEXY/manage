@@ -13,20 +13,4 @@ import javax.annotation.Resource;
 @RestController
 public class MsUserServlet {
 
-    @Resource
-    private MsUserMapper msUserMapper;
-
-    @RequestMapping("ms/bg/do/{repordId}")
-    public R yes(@PathVariable int reportId){
-
-        return null;
-
-    }
-
-    @RequestMapping("ms/bg/undo/{repordId}")
-    public R undo(@PathVariable int reportId){
-
-        return null;
-
-    }
 }
