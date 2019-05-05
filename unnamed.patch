@@ -1,0 +1,175 @@
+Index: src/main/java/com/lh/service/InquireService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/lh/service/InquireService.java	(revision )
++++ src/main/java/com/lh/service/InquireService.java	(revision )
+@@ -0,0 +1,8 @@
++package com.lh.service;
++
++import com.lh.utils.R;
++
++public interface InquireService {
++
++    R find(int pageIndex, int pageSum, Integer status);
++}
+Index: src/main/java/com/lh/dto/MsOrderDTO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/lh/dto/MsOrderDTO.java	(revision )
++++ src/main/java/com/lh/dto/MsOrderDTO.java	(revision )
+@@ -0,0 +1,62 @@
++package com.lh.dto;
++
++import java.math.BigDecimal;
++import java.util.Date;
++
++public class MsOrderDTO {
++
++    private Long orderid;
++    private Date startdate;
++    private Date outdate;
++    private BigDecimal money;
++    private BigDecimal deposit;
++    private Integer status;
++
++    public Long getOrderid() {
++        return orderid;
++    }
++
++    public void setOrderid(Long orderid) {
++        this.orderid = orderid;
++    }
++
++    public Date getStartdate() {
++        return startdate;
++    }
++
++    public void setStartdate(Date startdate) {
++        this.startdate = startdate;
++    }
++
++    public Date getOutdate() {
++        return outdate;
++    }
++
++    public void setOutdate(Date outdate) {
++        this.outdate = outdate;
++    }
++
++    public BigDecimal getMoney() {
++        return money;
++    }
++
++    public void setMoney(BigDecimal money) {
++        this.money = money;
++    }
++
++    public BigDecimal getDeposit() {
++        return deposit;
++    }
++
++    public void setDeposit(BigDecimal deposit) {
++        this.deposit = deposit;
++    }
++
++    public Integer getStatus() {
++        return status;
++    }
++
++    public void setStatus(Integer status) {
++        this.status = status;
++    }
++}
+Index: src/main/java/com/lh/controller/InquireServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/lh/controller/InquireServlet.java	(revision )
++++ src/main/java/com/lh/controller/InquireServlet.java	(revision )
+@@ -0,0 +1,22 @@
++package com.lh.controller;
++
++import com.lh.service.InquireService;
++import com.lh.utils.R;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.ResponseBody;
++import org.springframework.web.bind.annotation.RestController;
++
++import javax.annotation.Resource;
++
++@RestController
++public class InquireServlet {
++
++    @Resource
++    private InquireService inquireService;
++
++    @RequestMapping("/ms/bg/order/inquire")
++    @ResponseBody
++    public R findList(int pageIndex, int pageSum, Integer status){
++        return inquireService.find(pageIndex, pageSum, status);
++    }
++}
+Index: src/main/java/com/lh/service/impl/InquireServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/lh/service/impl/InquireServiceImpl.java	(revision )
++++ src/main/java/com/lh/service/impl/InquireServiceImpl.java	(revision )
+@@ -0,0 +1,51 @@
++package com.lh.service.impl;
++
++import com.github.pagehelper.PageHelper;
++import com.github.pagehelper.PageInfo;
++import com.lh.dto.MsOrderDTO;
++import com.lh.entity.MsOrder;
++import com.lh.entity.MsOrderExample;
++import com.lh.mapper.MsOrderMapper;
++import com.lh.service.InquireService;
++import com.lh.utils.R;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++import org.springframework.util.StringUtils;
++
++
++import java.util.ArrayList;
++import java.util.List;
++
++@Service
++public class InquireServiceImpl implements InquireService{
++
++    @Autowired
++    private MsOrderMapper msOrderMapper;
++
++    @Override
++    public R find(int pageIndex, int pageSum, Integer status) {
++        PageHelper.startPage(pageIndex,pageSum);
++        List<MsOrderDTO> list = new ArrayList<>();
++        MsOrderExample example = new MsOrderExample();
++        if (!StringUtils.isEmpty(status)){
++            MsOrderExample.Criteria criteria = example.createCriteria();
++            criteria.andStatusEqualTo(status);
++        }
++        List<MsOrder> msOrders = msOrderMapper.selectByExample(example);
++        for (MsOrder msOrder : msOrders) {
++            MsOrderDTO msOrder1 = new MsOrderDTO();
++            msOrder1.setOrderid(msOrder.getOrderid());
++            msOrder1.setStartdate(msOrder.getStartdate());
++            msOrder1.setOutdate(msOrder.getOutdate());
++            msOrder1.setMoney(msOrder.getMoney());
++            msOrder1.setDeposit(msOrder.getDeposit());
++            msOrder1.setStatus(msOrder.getStatus());
++
++            list.add(msOrder1);
++        }
++
++        PageInfo pageInfo = new PageInfo(list);
++
++        return list.size()>0?R.ok().put("data",pageInfo):R.error("查询错误");
++    }
++}
