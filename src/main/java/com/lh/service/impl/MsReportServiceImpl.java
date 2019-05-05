@@ -10,10 +10,12 @@ import com.lh.mapper.MsUserMapper;
 import com.lh.service.MsReportService;
 import com.lh.utils.R;
 import com.lh.utils.StringUtil;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Service
 public class MsReportServiceImpl implements MsReportService {
 
     @Resource
@@ -23,6 +25,7 @@ public class MsReportServiceImpl implements MsReportService {
 
     @Override
     public R getList(int pageIndex, int pageSize, String reason) {
+
 
         PageHelper.startPage(pageIndex,pageSize);
         MsReportExample example = new MsReportExample();

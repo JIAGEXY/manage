@@ -4,11 +4,13 @@ import com.lh.mapper.MsReportMapper;
 import com.lh.mapper.MsUserMapper;
 import com.lh.service.MsReportService;
 import com.lh.utils.R;
+import javafx.beans.DefaultProperty;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.websocket.server.PathParam;
 
 @RestController
 public class MsReportServlet {
@@ -17,12 +19,12 @@ public class MsReportServlet {
     private MsReportService msReportService;
 
     @RequestMapping("/ms/bg/report/list")
-    public R getList(int pageIndex,int pageSize,String reason){
+    public R getList(int pageIndex, int pageSize, String reason){
 
         return msReportService.getList(pageIndex,pageSize,reason);
     }
 
-    @RequestMapping("/ms/bg/report/info/{repordId}")
+    @RequestMapping("/ms/bg/report/info/{reportId}")
     public R getInfo(@PathVariable long reportId){
 
         return msReportService.getInfo(reportId);
@@ -40,7 +42,7 @@ public class MsReportServlet {
     @RequestMapping("/ms/bg/undo/{comId}")
     public R undo(@PathVariable long comId){
 
-        return null;
+        return msReportService.undo(comId);
 
     }
 }
