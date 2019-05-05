@@ -93,4 +93,6 @@ public interface MsReportMapper {
      * @mbggenerated Wed May 01 11:04:32 CST 2019
      */
     int updateByPrimaryKey(MsReport record);
+
+    List<MsReport> selectAll();
 }

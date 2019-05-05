@@ -362,4 +362,12 @@
       createTime = #{createtime,jdbcType=TIMESTAMP}
     where artId = #{artid,jdbcType=BIGINT}
   </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from ms_article
+  </select>
+  <select id="selectLike" resultMap="BaseResultMap" parameterType="string">
+      select * from ms_article where title like CONCAT('%',#{str},'%')
+  </select>
+
 </mapper>

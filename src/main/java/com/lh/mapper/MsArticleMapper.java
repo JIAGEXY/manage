@@ -93,4 +93,7 @@ public interface MsArticleMapper {
      * @mbggenerated Wed May 01 11:04:32 CST 2019
      */
     int updateByPrimaryKey(MsArticle record);
+
+    List<MsArticle> selectLike(String str);
+    List<MsArticle> selectAll();
 }

@@ -315,4 +315,8 @@
       createTime = #{createtime,jdbcType=TIMESTAMP}
     where repordId = #{repordid,jdbcType=BIGINT}
   </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from ms_report
+  </select>
 </mapper>
