@@ -93,4 +93,6 @@ public interface SysMenuMapper {
      * @mbggenerated Wed May 01 11:04:32 CST 2019
      */
     int updateByPrimaryKey(SysMenu record);
+
+    List<String> selectMenuById(Long adminId);
 }

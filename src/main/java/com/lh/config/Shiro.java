@@ -65,8 +65,8 @@ public class Shiro {
         /*map.put("/public/**","anon");//静态js，css
         map.put("/json/**","anon");//假数据*/
         map.put("/ms/**","anon");
-        /*map.put("/login.html","anon");
-        map.put("/captcha.jpg","anon");//验证码
+      //  map.put("/login","anon");
+        /*map.put("/captcha.jpg","anon");//验证码
         map.put("/ms/login","anon");
         map.put("/alpay.html","anon");
         map.put("/**","user");

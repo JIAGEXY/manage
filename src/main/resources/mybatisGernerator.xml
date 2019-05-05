@@ -61,6 +61,7 @@
         <table tableName="ms_art_lable"/>
         <table tableName="ms_room_notice"/>
         <table tableName="ms_user_hobby"/>
+        <table tableName="sys_loginlog"/>
 
     </context>
 </generatorConfiguration>

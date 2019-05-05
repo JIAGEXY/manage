@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.lh.mapper")
-@ServletComponentScan(basePackages = "com.lh.config")
+@ServletComponentScan(basePackages = {"com.lh.config"})
 public class ManageApplication {
 
     public static void main(String[] args) {

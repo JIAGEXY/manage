@@ -330,4 +330,15 @@
       order_num = #{orderNum,jdbcType=INTEGER}
     where menu_id = #{menuId,jdbcType=BIGINT}
   </update>
+
+
+  <!--List<String> selectMenuById(Long adminId);-->
+  <select id="selectMenuById" resultType="java.lang.String" parameterType="java.lang.Long">
+           SELECT DISTINCT m.perms FROM sys_admin u
+    INNER JOIN sys_user_role ur ON u.`admin_id`=ur.`sys_admin`
+    JOIN sys_role r ON ur.`role_id`=r.`role_id`
+    JOIN sys_role_menu rm ON r.`role_id`=rm.role_id
+    JOIN sys_menu m ON rm.menu_id=m.menu_id
+    WHERE u.`admin_id`=#{id}
+  </select>
 </mapper>
